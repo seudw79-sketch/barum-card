@@ -11,7 +11,7 @@
 :root{--navy:#0f3d6e;--blue:#1a73e8;--ink:#1b1f24;--mute:#5f6b7a;--line:#e6eaf0;--bg:#f3f5f8;--card:#fff;--ok:#1e8e5a}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR","NanumGothic",sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
-.wrap{max-width:430px;margin:0 auto;padding:14px 14px 90px}
+.wrap{width:100%;max-width:430px;margin:0 auto;padding:14px 14px 90px;overflow-x:hidden}
 .draft{background:#fff7e0;color:#8a5a00;font-size:12px;text-align:center;padding:6px 10px;border-radius:8px;margin-bottom:10px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 16px;margin-bottom:12px;box-shadow:0 2px 10px rgba(16,30,50,.05)}
 .hero{text-align:center;padding-top:22px}
@@ -29,10 +29,10 @@ h2{font-size:15px;color:var(--navy);margin-bottom:10px;display:flex;align-items:
 .svc{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .svc div{background:var(--bg);border-radius:12px;padding:10px}
 .svc b{display:block;font-size:14px;margin-bottom:2px}
-.svc small{color:var(--mute);font-size:12px;line-height:1.35;display:block}
-table{width:100%;border-collapse:collapse;font-size:13.5px}
+.svc small{color:var(--mute);font-size:12px;line-height:1.35;display:block;word-break:keep-all}
+table{width:100%;border-collapse:collapse;font-size:13.5px;table-layout:fixed}
 td{padding:7px 4px;border-bottom:1px solid var(--line);vertical-align:top}
-td:last-child{text-align:right;white-space:nowrap;font-weight:600}
+td:last-child{text-align:right;font-weight:600;width:44%}
 .note{font-size:12px;color:var(--mute);margin-top:8px}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chips span{background:var(--bg);border-radius:999px;padding:4px 10px;font-size:12.5px}
