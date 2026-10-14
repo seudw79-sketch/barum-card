@@ -21,7 +21,7 @@ body{font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR","NanumGothic
 .hero .en{font-size:12px;color:var(--mute);letter-spacing:.1em;margin-top:2px}
 .hero .slogan{margin-top:10px;font-size:15px;color:var(--ink);font-weight:600}
 .hero .sub{font-size:13px;color:var(--mute);margin-top:4px}
-.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}/* 카카오톡 복원 시 4 */
 .actions a{display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;color:var(--ink);font-size:12px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 4px}
 .actions a span.i{font-size:20px}
 .primary{display:block;margin-top:12px;background:var(--navy);color:#fff;text-decoration:none;text-align:center;font-weight:700;padding:14px;border-radius:12px;font-size:16px}
@@ -41,7 +41,7 @@ td:last-child{text-align:right;font-weight:600;width:44%}
 .ph{color:#8a5a00;background:#fff7e0;border:1px dashed #e0b85a;border-radius:8px;padding:8px;font-size:12.5px}
 .info td:last-child{text-align:left;font-weight:400}
 .qr{text-align:center}.qr img{width:150px;height:150px}
-.bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom))}
+.bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom))}/* 카카오톡 복원 시 1fr 1fr 1fr */
 .bar a{text-decoration:none;text-align:center;font-weight:700;padding:11px 6px;border-radius:10px;font-size:14px}
 .bar .tel{background:var(--navy);color:#fff}.bar .sms{background:var(--bg);color:var(--ink);border:1px solid var(--line)}.bar .kakao{background:#fee500;color:#191919}
 footer{font-size:11.5px;color:var(--mute);text-align:center;margin-top:10px;line-height:1.6}
@@ -61,7 +61,9 @@ footer{font-size:11.5px;color:var(--mute);text-align:center;margin-top:10px;line
   <div class="actions">
     <a href="tel:010-3427-5636"><span class="i">📞</span>전화</a>
     <a href="sms:010-3427-5636"><span class="i">💬</span>문자</a>
-    <a href="https://pf.kakao.com/_REPLACE" id="kakao"><span class="i">🟡</span>카카오톡</a>
+    <!-- 카카오톡 버튼: 실제 채널 URL(pf.kakao.com/<채널ID>) 확보 후 복원
+    <a href="https://pf.kakao.com/CHANNEL_ID" id="kakao"><span class="i">🟡</span>카카오톡</a>
+    -->
     <a href="barumclean.vcf" download="바름클린_서동우.vcf"><span class="i">📇</span>연락처 저장</a>
   </div>
   <a class="primary" href="tel:010-3427-5636">010-3427-5636 바로 전화</a>
@@ -96,7 +98,7 @@ footer{font-size:11.5px;color:var(--mute);text-align:center;margin-top:10px;line
     <tr><td>아파트·빌라 20~25평 / 26~30평</td><td>275,000 / 330,000원</td></tr>
     <tr><td>벽걸이 에어컨 분해청소</td><td>70,000원</td></tr>
     <tr><td>스탠드 에어컨 분해청소 (가정용 / 듀얼·무풍)</td><td>110,000 / 130,000원</td></tr>
-    <tr><td>통돌이 세탁기 분해청소 (14kg~)</td><td>70,000원~</td></tr>
+    <tr><td>통돌이 세탁기 분해청소 (14kg / 15~16kg / 17~20kg / 21kg 이상)</td><td>70,000 / 80,000 / 90,000 / 110,000원</td></tr>
     <tr><td>드럼세탁기 분해청소 (일반 / 빌트인)</td><td>130,000 / 150,000원</td></tr>
     <tr><td>냉장고 청소 (미니 / 단문 / 양문)</td><td>30,000 / 50,000 / 80,000원</td></tr>
     <tr><td>사무실·학원·의원 정기청소</td><td>월 200,000원부터</td></tr>
@@ -104,6 +106,7 @@ footer{font-size:11.5px;color:var(--mute);text-align:center;margin-top:10px;line
   <p class="note">베란다 추가 2만원 · 오염이 심하거나 특수 상황이면 소정의 추가 요금이 있을 수 있습니다 · 정기청소는 면적·주기 따라 현장 견적 · 부가세 별도 여부는 견적서에 표기</p>
 </section>
 
+<!-- 고객 후기: 실제 후기(당근·네이버 원문)가 생기면 복원
 <section class="card">
   <h2>⭐ 고객 후기</h2>
   <div class="review"><p class="ph">[후기 자리 1] 실제 고객 후기 원문(당근·네이버)만 넣습니다. 지어낸 후기 없음.</p></div>
@@ -111,6 +114,7 @@ footer{font-size:11.5px;color:var(--mute);text-align:center;margin-top:10px;line
   <div class="review"><p class="ph">[후기 자리 3]</p></div>
   <p class="note">후기는 대가와 교환하지 않습니다.</p>
 </section>
+-->
 
 <section class="card">
   <h2>📍 다니는 곳 · 시간</h2>
@@ -143,7 +147,9 @@ footer{font-size:11.5px;color:var(--mute);text-align:center;margin-top:10px;line
 <div class="bar">
   <a class="tel" href="tel:010-3427-5636">📞 전화</a>
   <a class="sms" href="sms:010-3427-5636">💬 문자</a>
-  <a class="kakao" href="https://pf.kakao.com/_REPLACE">카카오톡</a>
+  <!-- 카카오톡 버튼: 실제 채널 URL 확보 후 복원
+  <a class="kakao" href="https://pf.kakao.com/CHANNEL_ID">카카오톡</a>
+  -->
 </div>
 <script>
 document.getElementById('share').addEventListener('click',async e=>{e.preventDefault();const u=location.href.split('#')[0];
