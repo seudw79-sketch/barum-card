@@ -3,7 +3,7 @@
   var TEL = "010-3427-5636", KAKAO_URL = ""; /* 카카오 채널 URL 확보 시 여기에만 넣으면 카톡 버튼이 나타난다 */
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var won = function (n) { return n.toLocaleString("ko-KR") + "원"; };
-  var P, state = { tab: "regular" }, box = $("#calc");
+  var P, box = $("#calc"), state = { tab: (box && box.dataset.tab) || "regular" };
   if (!box) return;
   document.querySelectorAll(".kakao").forEach(function (a) { if (KAKAO_URL) { a.href = KAKAO_URL; a.hidden = false; } else a.hidden = true; });
   function sms(text) { return "sms:" + TEL + "?&body=" + encodeURIComponent(text); }
@@ -11,7 +11,7 @@
   var TABS = [["regular", "정기청소"], ["room", "원룸청소"], ["aircon", "에어컨청소"], ["window", "외창청소"], ["repair", "작은집수리"]];
 
   function render() {
-    var t = state.tab, h = '<div class="tabs" role="tablist">' + TABS.map(function (x) {
+    var t = state.tab, h = box.dataset.single ? "" : '<div class="tabs" role="tablist">' + TABS.map(function (x) {
       return '<button type="button" role="tab" data-tab="' + x[0] + '" aria-selected="' + (x[0] === t) + '">' + x[1] + "</button>"; }).join("") + "</div>";
     h += '<div class="pane" id="pane"></div><div class="result" id="result" aria-live="polite"></div>';
     box.innerHTML = h;
