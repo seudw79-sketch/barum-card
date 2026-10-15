@@ -38,7 +38,7 @@
  "aircon": [
   {
    "label": "벽걸이",
-   "price": 70000
+   "price": 80000
   },
   {
    "label": "시스템 1way",
@@ -46,13 +46,20 @@
   },
   {
    "label": "스탠드 (가정용)",
-   "price": 110000
+   "price": 130000
   },
   {
    "label": "스탠드 (듀얼·무풍)",
    "price": 130000
   }
  ],
+ "window": {
+  "apt_per_py": 15000,
+  "big_living_from": 100000,
+  "storefront": "사진 보고 견적",
+  "max_floor_excluded": 10,
+  "approved": "2026-10-15 owner"
+ },
  "repair": [
   {
    "section": "욕실 수전·세면기",

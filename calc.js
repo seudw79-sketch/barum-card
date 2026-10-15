@@ -69,12 +69,19 @@
     p.onchange = u; u();
   }
   function win(p) {
-    p.innerHTML = sel("w_w", "어디 창인가요", ["가게 1층 유리", "가게 2층 유리", "아파트·집 창 바깥", "그 밖의 창"]) +
-      '<label class="f">창 개수·크기 (아는 만큼)<input id="w_n" type="text" placeholder="예: 큰 유리 3장"></label>';
+    var W = P.window;
+    p.innerHTML = sel("w_w", "어디 창인가요", ["아파트·집 창 바깥 (9층 이하)", "가게·교회 1층 유리", "가게·교회 2층 유리", "그 밖의 창"]) +
+      '<label class="f" id="w_pl">집 평수(분양평수, 아는 만큼)<input id="w_s" type="number" inputmode="numeric" min="1" placeholder="예: 25"></label>' +
+      '<label class="f">창 개수·크기 (아는 만큼)<input id="w_n" type="text" placeholder="예: 거실 큰 창 1, 방 창 3"></label>';
     var u = function () {
-      var w = $("#w_w").selectedOptions[0].text, n = $("#w_n").value;
-      out(null, ["외창 청소", w].concat(n ? [n] : []), true);
-      setCta("[바름클린 견적 문의] 외창 청소 / " + w + (n ? " / " + n : "") + " 사진 보내겠습니다.");
+      var k = +$("#w_w").value, w = $("#w_w").selectedOptions[0].text, n = $("#w_n").value, s = +$("#w_s").value;
+      $("#w_pl").style.display = k === 0 ? "" : "none";
+      if (k === 0) {
+        var lines = ["외창 청소", w].concat(s ? [s + "평"] : []).concat(n ? [n] : []);
+        if (s) { out(s * W.apt_per_py, lines, true); $("#result .small:last-child").textContent = "평당 " + won(W.apt_per_py) + " 기준 예상 금액입니다. 사진으로 창을 보고 확정합니다. 로프 없이 손·도구가 닿는 범위만 작업합니다."; }
+        else { $("#result").innerHTML = '<div class="big">평당 ' + won(W.apt_per_py) + '</div><div class="small">거실 큰 창은 ' + won(W.big_living_from) + '~</div><div class="small">평수를 넣으면 합계가 나옵니다. 10층 이상·난간 밖 작업은 하지 않습니다.</div>'; setCta("[바름클린 견적 문의] 외창 청소 / " + w + (n ? " / " + n : "") + " 사진 보내겠습니다."); }
+      } else out(null, ["외창 청소", w].concat(n ? [n] : []), true);
+      if (k !== 0) setCta("[바름클린 견적 문의] 외창 청소 / " + w + (n ? " / " + n : "") + " 사진 보내겠습니다.");
     };
     p.oninput = u; p.onchange = u; u();
   }
