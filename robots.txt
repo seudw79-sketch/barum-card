@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://barum-card.vercel.app/sitemap.xml
+Sitemap: https://barumclean.com/sitemap.xml

@@ -2,10 +2,37 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/v2", "destination": "/", "permanent": true },
-    { "source": "/v2/:path", "destination": "/:path", "permanent": true }
+    {
+      "source": "/v2",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/v2/:path",
+      "destination": "/:path",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "barum-card.vercel.app"
+        }
+      ],
+      "destination": "https://barumclean.com/$1",
+      "permanent": true
+    }
   ],
   "headers": [
-    { "source": "/(a|b|c|card)", "headers": [ { "key": "X-Robots-Tag", "value": "noindex, nofollow" } ] }
+    {
+      "source": "/(a|b|c|card)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    }
   ]
 }
