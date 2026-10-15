@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://barumclean.com/sitemap.xml
+
+#DaumWebMasterTool:d2387561253f03c1758aabafa192c7c83d200dd2ef588ddcfb5263364302ae9d:n4Bdeh3er8dd+gRpPxKBoA==
