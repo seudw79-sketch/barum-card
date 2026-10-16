@@ -1,7 +1,7 @@
 const form=document.querySelector('#quote-form');
 const errorBox=document.querySelector('#error');
 const button=form.querySelector('button[type=submit]');
-function showError(message){document.querySelector('#error-text').textContent=message;errorBox.hidden=false;errorBox.focus();}
+function showError(message){document.querySelector('#error-text').textContent=message;errorBox.hidden=false;errorBox.focus({preventScroll:true});errorBox.scrollIntoView({block:'start'});}
 function smsLink(){const values=new FormData(form);const body=`견적 문의\n서비스: ${values.getAll('service').join(', ')}\n지역: ${values.get('region')}\n평수·대수: ${values.get('size')}\n희망 일정: ${values.get('date')}\n요청사항: ${values.get('notes')}`;document.querySelectorAll('[data-sms]').forEach(a=>a.href='sms:01034275636'+(/iPhone|iPad|iPod/.test(navigator.userAgent)?'&':'?')+'body='+encodeURIComponent(body));}
 form.addEventListener('input',smsLink);smsLink();
 async function resize(file){
