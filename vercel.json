@@ -33,6 +33,20 @@
           "value": "noindex, nofollow"
         }
       ]
+    },
+    {
+      "source": "/quote",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
     }
-  ]
+  ],
+  "functions": {
+    "api/quote.js": {
+      "maxDuration": 60
+    }
+  }
 }
