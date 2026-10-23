@@ -1,5 +1,14 @@
 /* 바름클린 견적 계산기 — 가격은 /prices.json 단일 원본(build_prices.py 생성). 없는 가격은 지어내지 않고 사진 견적으로 보낸다. */
 (function () {
+  function quoteHref(tab, size, notes) {
+    var service = {regular:"정기청소",room:"원룸청소",aircon:"에어컨",window:"외창",repair:"작은집수리"}[tab];
+    if (!service) return "/quote";
+    var query = new URLSearchParams({service:service});
+    if (size) query.set("size", size.slice(0,100));
+    if (notes) query.set("notes", notes.slice(0,900));
+    return "/quote?" + query.toString();
+  }
+  if (window.__BARUM_TEST__) window.__BARUM_TEST__.quoteHref = quoteHref;
   var TEL = "010-3427-5636", KAKAO_URL = ""; /* 카카오 채널 URL 확보 시 여기에만 넣으면 카톡 버튼이 나타난다 */
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var won = function (n) { return n.toLocaleString("ko-KR") + "원"; };
@@ -7,7 +16,25 @@
   if (!box) return;
   document.querySelectorAll(".kakao").forEach(function (a) { if (KAKAO_URL) { a.href = KAKAO_URL; a.hidden = false; } else a.hidden = true; });
   function sms(text) { return "sms:" + TEL + "?&body=" + encodeURIComponent(text); }
-  function setCta(msg) { document.querySelectorAll("[data-sms]").forEach(function (a) { a.href = sms(msg); }); }
+  function setCta(msg) {
+    document.querySelectorAll("[data-sms]").forEach(function (a) { a.href = sms(msg); });
+    var size = "", chosen = true;
+    if (state.tab === "regular") size = $("#rg_s").value ? $("#rg_s").value + "평" : "";
+    if (state.tab === "room") size = $("#rm_s").selectedOptions[0].text;
+    if (state.tab === "window") size = (+$("#w_w").value === 0 && $("#w_s").value ? $("#w_s").value + "평 · " : "") + $("#w_n").value;
+    if (state.tab === "aircon") {
+      size = P.aircon.map(function(a,i) { var n = +$("#q"+i).textContent; return n ? a.label + " " + n + "대" : ""; }).filter(Boolean).join(", ");
+      chosen = !!size || $("#ac_o").checked;
+    }
+    if (state.tab === "repair") { var n = box.querySelectorAll("#pane input:checked").length; chosen = n > 0; size = n ? n + "건" : ""; }
+    var result = $("#result"), old = result.querySelector(".quote-request");
+    if (old) old.remove();
+    var link = document.createElement("a");
+    link.className = "call quote-request" + (chosen ? "" : " pending");
+    link.textContent = "견적 요청하기 (대표에게 바로 전달)";
+    link.href = quoteHref(state.tab, chosen ? size : "", chosen ? msg : "");
+    result.appendChild(link);
+  }
   var TABS = [["regular", "정기청소"], ["room", "원룸청소"], ["aircon", "에어컨청소"], ["window", "외창청소"], ["repair", "작은집수리"]];
 
   function render() {
@@ -34,7 +61,7 @@
       var f = $("#rg_f").selectedOptions[0].text, s = $("#rg_s").value;
       $("#result").innerHTML = '<div class="big">월 ' + won(P.regular_from) + '부터</div><div class="small">' + f + (s ? " · " + s + "평" : "") +
         '</div><div class="small">면적·횟수에 따라 정해집니다. 사진이나 주소를 보내 주시면 견적을 드립니다.</div>';
-      setCta("[바름클린 견적 문의] 사무실 정기청소 / " + f + (s ? " / " + s + "평" : "") + " 견적 부탁드립니다. 사진 보내겠습니다.");
+      setCta("[바름클린 견적 문의] 사무실 정기청소 / " + f + (s ? " / " + s + "평" : "") + " / 예상금액: 월 " + won(P.regular_from) + "부터 (면적·횟수에 따라 별도 확정). 사진 보내겠습니다.");
     };
     p.oninput = u; u();
   }
@@ -78,7 +105,7 @@
       $("#w_pl").style.display = k === 0 ? "" : "none";
       if (k === 0) {
         var lines = ["외창 청소", w].concat(s ? [s + "평"] : []).concat(n ? [n] : []);
-        if (s) { out(s * W.apt_per_py, lines, true); $("#result .small:last-child").textContent = "평당 " + won(W.apt_per_py) + " 기준 예상 금액입니다. 사진으로 창을 보고 확정합니다. 로프 없이 손·도구가 닿는 범위만 작업합니다."; }
+        if (s) { out(s * W.apt_per_py, lines, true); $("#result .small:last-of-type").textContent = "평당 " + won(W.apt_per_py) + " 기준 예상 금액입니다. 사진으로 창을 보고 확정합니다. 로프 없이 손·도구가 닿는 범위만 작업합니다."; }
         else { $("#result").innerHTML = '<div class="big">평당 ' + won(W.apt_per_py) + '</div><div class="small">거실 큰 창은 ' + won(W.big_living_from) + '~</div><div class="small">평수를 넣으면 합계가 나옵니다. 10층 이상·난간 밖 작업은 하지 않습니다.</div>'; setCta("[바름클린 견적 문의] 외창 청소 / " + w + (n ? " / " + n : "") + " 사진 보내겠습니다."); }
       } else out(null, ["외창 청소", w].concat(n ? [n] : []), true);
       if (k !== 0) setCta("[바름클린 견적 문의] 외창 청소 / " + w + (n ? " / " + n : "") + " 사진 보내겠습니다.");

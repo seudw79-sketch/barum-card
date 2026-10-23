@@ -1,4 +1,16 @@
+(function () {
+function parseQuery(search) {
+  const params=new URLSearchParams(search);
+  const allowed=['정기청소','원룸청소','에어컨','외창','작은집수리','기타'];
+  return {services:params.getAll('service').filter(s=>allowed.includes(s)),size:(params.get('size')||'').slice(0,100),notes:(params.get('notes')||'').slice(0,1000)};
+}
+if(window.__BARUM_TEST__)window.__BARUM_TEST__.parseQuery=parseQuery;
 const form=document.querySelector('#quote-form');
+if(!form)return;
+const prefill=parseQuery(window.location.search);
+form.querySelectorAll('[name=service]').forEach(input=>{input.checked=prefill.services.includes(input.value);});
+form.elements.size.value=prefill.size;
+form.elements.notes.value=prefill.notes;
 const errorBox=document.querySelector('#error');
 const button=form.querySelector('button[type=submit]');
 function showError(message){document.querySelector('#error-text').textContent=message;errorBox.hidden=false;errorBox.focus({preventScroll:true});errorBox.scrollIntoView({block:'start'});}
@@ -30,3 +42,5 @@ form.addEventListener('submit',async event=>{
   }catch{showError('접수 여부를 확인하지 못했습니다. 입력 내용은 그대로 남아 있습니다. 전화나 문자로 확인해주세요.');}
   finally{button.disabled=false;button.textContent='견적 신청 보내기';}
 });
+
+})();
